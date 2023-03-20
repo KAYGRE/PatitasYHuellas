@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Clientes</title>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="website icon" type="png" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+   
+   <style>
+       .error-control{
+  border: 1px solid red;
+}  
+
+label.error{
+  color: rgb(160, 37, 37);
+  width: 200px;
+  font-size: 0.8em;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+        
+        
+        
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        #userpatitas{
+        color: #c5c5c5;
+        font-size: 20px;
+        }
+        
+        #userpatitas:hover #user a:not(:hover){
+        color: white;
+        opacity: 0.3;
+        filter: blur(2px);
+        }
+
+        #userpatitas img{
+        margin-right: 5px;
+        margin-bottom: 3px;
+        }
+        footer{
+        
+        padding: 15px;
+      color: #c5c5c5;
+      background-color: #212529;
+      height: 180px;
+      margin-top: 10px;
+      column-gap: 12;
+      font-family: "Oswald", sans-serif;
+      position:relative;
+      width:100%;
+      bottom:0px;
+        }
+        footer div a{
+      color: #c5c5c5;
+    }
+    footer div p{
+      font-size: 12px;
+      color: #888888;
+      padding-top: 0px;
+      line-height: 15px;
+      
+    }
+    
+    @media (max-width:1000px){
+      header label{
+          display: block;
+      }
+      footer{
+        height: 520px;
+        padding: 15px;
+      color: #c5c5c5;
+      background-color: #212529;
+      
+      margin-top: 10px;
+      column-gap: 12;
+      font-family: "Oswald", sans-serif;
+      position:relative;
+      width:100%;
+      bottom:0px;
+      }
+      
+    }
+     
+        .head{
+            background-color: rgb(135, 124, 124);
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            height: 100%;
+            
+            
+            
+        }
+       
+        
+    </style>
+
+<script>
+    $(function(){
+        $("#formulario1").validate({
+            rules:{
+                rutcliente: "required",
+                nombrecliente: "required",
+                contacto: "required",
+                tipocli: "required",
+            },
+            messages:{
+                rutcliente:{
+                    required: 'Ingrese su Rut'
+                },
+
+                nombrecliente:{
+                    required: 'Ingrese su Nombre'
+                },
+
+                contacto:{
+                    required: 'Ingrese su numero de telefono'
+                },
+
+                tipocli: {
+                    required: 'Seleccione una categoria'
+                }
+            }
+        });
+    });
+</script>
+
+</head>
+<body>
+<!--navbar-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'nosotros' %}">
+    <img src="{% static 'img/logo.png' %}" alt="Logo" width="40px" height="40px" class="rounded-pill">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="opciones">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}"><b>Inicio</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'nosotros' %}"><b>Nosotros</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'galeria' %}"><b>Galeria</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'pokedex' %}" target="_blank"><b>Pokedex</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'formulario' %}"><b>form</b></a>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'clientes'%}" ><b>Clientes</b></a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'mascotas'%}" ><b>Mascotas</b></a>
+        </li>
+        <div class="container">
+        {% if user.is_authenticated %}
+        <li class="nav-item right">
+            <a href="{% url 'logout' %}" id="userpatitas">
+            <img src="{% static 'img/user-vector-icon.png' %}" alt="userpatitas" width="30px">Cerrar sesión</a>
+        </li>
+        {% else %}
+        <li class="nav-item right">
+            <a href="{% url 'login' %}" id="userpatitas">
+            <img src="{% static 'img/user-vector-icon.png' %}" alt="userpatitas" width="30px">Iniciar sesión</a>
+        </li>
+        {% endif %}
+        </div>
+    </ul>
+    <!--reloj-->
+    <div class="container">
+        <ul class="navbar-nav col-lg-12" >
+        <li class="nav-item right">
+            <div class="reloj">
+                <span id="tiempo">00 : 00 : 00</span>
+            </div>
+        <script src="{% static 'js/reloj.js' %}"></script> </li>
+        </ul>
+    </div>
+    </div>
+</div>
+</nav>
+<br>
+  
+{% if user.is_authenticated %}  
+<br><br><br><br><br>
+<div class="container col-12 col-md-6 offset-md-3">
+    
+
+    <div class="jumbotron text-center head">
+        <form method="POST" action="#" id="formulario1">
+            {% csrf_token %}
+            <h3><b>Ingresando Clientes</b></h3>
+            <div class="form-group">
+                {{ Clienteform.rutcliente.label}}
+                {{ Clienteform.rutcliente}}
+            </div>
+
+            <div class="form-group">
+                {{ Clienteform.nombrecliente.label}}
+                {{ Clienteform.nombrecliente}}
+            </div>
+
+            <div class="form-group">
+                {{ Clienteform.contacto.label}}
+                {{ Clienteform.contacto}}
+            </div>
+
+            <div class="form-group">
+                {{ Clienteform.tipocli.label}}
+                {{ Clienteform.tipocli}}
+            </div>
+
+            <br><br>
+            <div class="row">
+                <div class="col-md">
+                    <input type="submit" class="btn btn-primary" value="Enviar">
+                    <a href="{% url 'clientes' %}" class="btn btn-success">Volver</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% else %}
+
+<br><br><br><br><br><br>
+<div class="container col-12 col-md-6 offset-md-3 ">
+    <div class="jumbotron text-center  ">
+        <h1><b>ERROR DE LOGIN</b></h1>
+        <p class="quienessomos"><b>"Violacion de seguridad"</b></p> 
+        <p class="quienessomos">No tiene cuenta de administrador para usar esta pagina</p>
+        <a href="{% url 'home' %}" class="btn btn-danger" style="font-size: xx-large;" >Volver</a>
+    </div>
+</div>
+
+{% endif %}
+<br><br>
+
+<!--footer-->
+<footer >
+<div class="row">
+    <div class="col-lg-1" >
+        <a href="{% url 'nosotros' %}">
+        <img src="{% static 'img/logo.png' %}"  width="55px" ><br><br>
+        </a>
+        <div class="row-lg-1">
+        <p>&copy; Copyrigth - 2023</p>
+        <p>Jean Castro & Eloí Espinaza</p>
+        </div>  
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'home' %}" ><strong>INICIO</strong></a>
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'nosotros' %}" ><strong>NOSOTROS</strong></a>
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'galeria' %}" ><strong>GALERIA</strong></a>
+    </div>
+    <div class="col-lg-1 ">
+        <a href="{% url 'pokedex' %}" target="_blank"><strong>POKEDEX</strong></a>
+    </div>
+    <div class="col-lg-1 ">
+        <a href="{% url 'formulario' %}" ><strong>FORM</strong></a>
+    </div>
+    
+    <div class="col-lg-4">
+        <strong>Síguenos</strong>
+        <br><br>
+        <div class="row-lg-2">
+            <a href="https://es-la.facebook.com/" target="_blank">
+            <img src="{% static 'img/face.png' %}" alt="" width="30px" height="30px" style=" margin-left: 15px;">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+            <img src="{% static 'img/insta.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+            </a>
+            <a href="https://twitter.com/?lang=es" target="_blank">
+            <img src="{% static 'img/twit.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+            </a>
+            <br><br>
+        </div>
+    </div>
+    
+    <div class="col-lg-2">
+        <strong>Contacto</strong>
+        <br><br>
+        <div class="row">
+            <img src="{% static 'img/direc.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>Av. Esq. Blanca 501, Maipú</p>
+        </div>
+        <div class="row">
+            <img src="{% static 'img/fono.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>+569 2387 4337</p>
+        </div>
+        <div class="row">
+            <img src="{% static 'img/mail.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>patitas.huellas@gmail.com</p>
+        </div>
+    </div>
+</div>
+</footer>
+</body>
+    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</html>

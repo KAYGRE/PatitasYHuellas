@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %} 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="website icon" type="png" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script> 
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+
+
+    <title>formulario</title>
+
+    <style>
+        button{
+            clear: both;
+            float: left;
+            width: 50px;
+        }
+        
+        footer{
+        
+        padding: 15px;
+      color: #c5c5c5;
+      background-color: #212529;
+      height: 180px;
+      margin-top: 10px;
+      column-gap: 12;
+      font-family: "Oswald", sans-serif;
+      width:100%;
+      bottom:0px;
+        }
+        footer div a{
+      color: #c5c5c5;
+    }
+    footer div p{
+      font-size: 12px;
+      color: #888888;
+      padding-top: 0px;
+      line-height: 15px;
+      
+    }
+    
+    @media (max-width:1000px){
+      header label{
+          display: block;
+      }
+      footer{
+        height: 520px;
+      }
+      
+    }
+      .quienessomos{
+        font-size: 1.5rem;
+        font-style: italic;
+        text-align: center;
+      }
+      #userpatitas{
+        color: #c5c5c5;
+        font-size: 20px;
+          }
+          
+      #userpatitas:hover #user a:not(:hover){
+        color: white;
+        opacity: 0.3;
+        filter: blur(2px);
+          }
+  
+      #userpatitas img{
+        margin-right: 5px;
+        margin-bottom: 3px;
+          }
+        body{
+        background-color: azure;
+        text-align: left;
+        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Oswald", sans-serif;
+        
+        }
+        h1 {
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        .error-control{
+        border: 1px solid red;
+        }  
+        label.error{
+        color: red;
+        width: 200px;
+        font-size: 0.8em;
+        margin-top: -5px;
+        margin-bottom: 10px;
+        }
+        .head{
+      background-color: rgb(135, 124, 124);
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      height: 230px;
+    }
+        .center1 {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        border: 3px solid #555;
+        float:left;
+        }
+
+    </style>
+
+    <script>
+        $(function(){
+            $("#form-patitas").validate({
+                rules:{
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    nombre:"required",
+                    fono:"required",
+                    lista1:"required",
+                    lista2:"required",
+                    
+
+                },
+                messages:{
+                    email:{
+                        required:'ingrese su correo electronico',
+                        email:'formato de correo no valido'
+                    },
+                    nombre:{
+                        required:'ingrese su nombre completo'
+                        
+                    },
+                    fono:{
+                        required:'Ingrese un numero de 9 digitos',
+                        minlength:'Cantidad de digitos insuficientes'
+                    },
+                    lista1:{
+                        required:'Debe selecionar una provincia'
+                    },
+                    lista2:{
+                        required:'Debe selecionar una comuna'
+                    }
+
+                }
+            });
+        });
+    </script>
+
+    <script>
+
+        function CambiarMayusculas(){
+            var a=document.getElementById('nombre');
+            a.value=a.value.toUpperCase();
+        }
+
+        function Enviar(){
+            alert("Gracias por contactarte con 'Patitas y Huellas' :D ");
+        }
+
+        function Limpiar(){
+            alert("Formulario limpio, puede volver a comenzar!")
+        }
+
+
+
+        function CorreoMayuscula(){
+            var b=document.getElementById('correo');
+            b.value=b.value.toUpperCase();
+        }
+    </script>
+    
+</head>
+<body>
+
+<!--navbar-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'nosotros' %}">
+    <img src="{% static 'img/logo.png' %}" alt="Logo" width="40px" height="40px" class="rounded-pill">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="opciones">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}"><b>Inicio</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'nosotros' %}"><b>Nosotros</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'galeria' %}"><b>Galeria</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'pokedex' %}" target="_blank"><b>Pokedex</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'formulario' %}"><b>form</b></a>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'clientes'%}" ><b>Clientes</b></a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'mascotas'%}" ><b>Mascotas</b></a>
+        </li>
+        <div class="container">
+        {% if user.is_authenticated %}
+        <li class="nav-item right">
+            <a href="{% url 'logout' %}" id="userpatitas">
+            <img src="{% static 'img/user-vector-icon.png' %}" alt="userpatitas" width="30px">Cerrar sesión</a>
+        </li>
+        {% else %}
+        <li class="nav-item right">
+            <a href="{% url 'login' %}" id="userpatitas">
+            <img src="{% static 'img/user-vector-icon.png' %}" alt="userpatitas" width="30px">Iniciar sesión</a>
+        </li>
+        {% endif %}
+        </div>
+    </ul>
+    <!--reloj-->
+    <div class="container">
+        <ul class="navbar-nav col-lg-12" >
+        <li class="nav-item right">
+            <div class="reloj">
+                <span id="tiempo">00 : 00 : 00</span>
+            </div>
+        <script src="{% static 'js/reloj.js' %}"></script> </li>
+        </ul>
+    </div>
+    </div>
+</div>
+</nav>
+<br><br><br>
+
+<!-- FORM -->
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron text-center head">
+                <h1><b>Formulario contacto Patitas y Huellas</b></h1>
+                <p>Si deseas adoptar o dar en adopción, llena el formulario y contactanos.</p>
+              </div>
+            <form id="form-patitas" method="post" action="#" name="formulario">
+
+                <h3 >Datos personales</h3>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre: </label>
+                    <input type="text" name="nombre" placeholder="Aquiles Bailoyo"  class="form-control" id="nombre" onchange="CambiarMayusculas()" required >
+                </div>
+               
+                <div class="form-group">
+                    <label for="correo">Correo: </label>
+                    <input type="email" name="email" placeholder="usuario@mail.cl" class="form-control" id="correo" onchange="CorreoMayuscula()" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono" >Teléfono: </label>
+                    <input type="text" name="fono" placeholder="123456789" id="telefono" class="form-control" minlength="9" required>
+                </div>
+                
+
+                <hr>
+
+                <h3>Seleccione lugar de residencia</h3>
+                <hr>
+
+                <div class="row col-12">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lista1">Seleccione la provincia</label>
+                            <select class="form-control" id="lista1" name="lista1" required>
+                                <option></option>
+                                <option>de Talagante</option>
+                                <option>de Santiago</option>
+                                <option>de Chacabuco</option>
+                                <option>de Cordillera</option>
+                                <option>de Maipo</option>
+                                <option>de Melipilla</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lista1">Seleccione la comuna</label>
+                            <select class="form-control" id="lista2" name="lista2" required>
+                                <option></option>
+                                <option>Talagante</option>
+                                <option>El Monte</option>
+                                <option>Isla de Maipo</option>
+                                <option>Padre Hurtado</option>
+                                <option>Peñaflor</option>
+                                <option>La Pintana</option>
+                                <option>La Reina</option>
+                                <option>Las Condes</option>
+                                <option>Lo Barnechea</option>
+                                <option>Lo Espejo</option>
+                                <option>Lo Prado</option>
+                                <option>Macul</option>
+                                <option>Maipú</option>
+                                <option>Ñuñoa</option>
+                                <option>Pedro Aguirre Cerda</option>
+                                <option>Peñalolen</option>
+                                <option>Providencia</option>
+                                <option>Pudahuel</option>
+                                <option>Quilicura</option>
+                                <option>Quinta Normal</option>
+                                <option>Recoleta</option>
+                                <option>Renca</option>
+                                <option>San Joaquin</option>
+                                <option>San Miguel</option>
+                                <option>San Ramón</option>
+                                <option>Vitacura</option>
+                                <option>Santiago</option>
+                                <option>Cerrillos</option>
+                                <option>Cerro Navia</option>
+                                <option>Conchalí</option>
+                                <option>El Bosque</option>
+                                <option>Estación Central</option>
+                                <option>Huechuraba</option>
+                                <option>Independencia</option>
+                                <option>La Cisterna</option>
+                                <option>La Florida</option>
+                                <option>La Granja</option>
+                                <option>Colina</option>
+                                <option>Lampa</option>
+                                <option>Til-til</option>
+                                <option>Puente Alto</option>
+                                <option>Pirque</option>
+                                <option>San José De Maipo</option>
+                                <option>San Bernardo</option>
+                                <option>Buin</option>
+                                <option>Calera De Tango</option>
+                                <option>Paine</option>
+                                <option>Melipilla</option>
+                                <option>Alhué</option>
+                                <option>Curacaví</option>
+                                <option>Maria Pinto</option>
+                                <option>San Pedro</option>
+                            </select>
+                        </div>
+                    </div>
+                 </div>
+
+                <hr>
+
+                <h3 >Animal a seleccionar</h3>
+                <hr>
+                
+                    <div class=" row col-12">
+                        <div class="col-md-6">
+                            <h5>Seleccione una opción: </h5>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" value="a" id="radio1" name="adopta">
+                                <label for="radio1" class="form-check-label si" >Adoptar</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" value="d" id="radio1" name="dar">
+                                <label for="radio1" class="form-check-label no" >Dar en adopción</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6"> 
+                            <h5>Seleccione uno o mas animales</h5>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="1" id="check1" >
+                                <label for="check1" class="form-check-label lau" onmouseover="style.color = 'brown'" onmouseout="style.color='black'">Perro</label>
+
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="2" id="check2">
+                                <label for="check2" class="form-check-label colo" onmouseover="style.color = 'grey'" onmouseout="style.color='black'">Gato</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="3" id="check3">
+                                <label for="check3" class="form-check-label wander" onmouseover="style.color = 'white'" onmouseout="style.color='black'">Conejo</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="3" id="check3">
+                                <label for="check3" class="form-check-label wander" onmouseover="style.color = 'green'" onmouseout="style.color='black'">loro</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="3" id="check3">
+                                <label for="check3" class="form-check-label wander" onmouseover="style.color = 'red'" onmouseout="style.color='black'">serpiente</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="3" id="check3">
+                                <label for="check3" class="form-check-label wander" onmouseover="style.color = 'orange'" onmouseout="style.color='black'">Hámster</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" value="3" id="check3">
+                                <label for="check3" class="form-check-label wander" onmouseover="style.color = 'darkgreen'" onmouseout="style.color='black'">Tortuga</label>
+                            </div>
+                        </div>
+                    </div>
+                
+
+
+                <hr>
+                <div class="form-group">
+                    <label for="comentarios">Déjanos algun comentario (opcional) </label>
+                    <textarea rows="6" id="comentarios" class="form-control"></textarea>
+                </div>
+
+                <hr>
+                
+                <input type="submit" value="Enviar" name="Enviar" onclick="Enviar()" required>
+                <input type="reset" value="Limpiar" onclick="Limpiar()">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!--footer-->
+<footer>
+    <div class="row">
+        <div class="col-lg-1" >
+            <a href="{% url 'nosotros' %}">
+            <img src="{% static 'img/logo.png' %}"  width="55px" ><br><br>
+            </a>
+            <div class="row-lg-1">
+            <p>&copy; Copyrigth - 2023</p>
+            <p>Jean Castro & Eloí Espinaza</p>
+            </div>  
+        </div>
+        <div class="col-lg-1">
+            <a href="{% url 'home' %}" ><strong>INICIO</strong></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{% url 'nosotros' %}" ><strong>NOSOTROS</strong></a>
+        </div>
+        <div class="col-lg-1">
+            <a href="{% url 'galeria' %}" ><strong>GALERIA</strong></a>
+        </div>
+        <div class="col-lg-1 ">
+            <a href="{% url 'pokedex' %}" target="_blank"><strong>POKEDEX</strong></a>
+        </div>
+        <div class="col-lg-1 ">
+            <a href="{% url 'formulario' %}" ><strong>FORM</strong></a>
+        </div>
+        
+        <div class="col-lg-3">
+            <strong>Síguenos</strong>
+            <br><br>
+            <div class="row">
+                <a href="https://es-la.facebook.com/" target="_blank">
+                <img src="{% static 'img/face.png' %}" alt="" width="30px" height="30px" style=" margin-left: 15px;">
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                <img src="{% static 'img/insta.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+                </a>
+                <a href="https://twitter.com/?lang=es" target="_blank">
+                <img src="{% static 'img/twit.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+                </a>
+                <br><br>
+            </div>
+        </div>
+        
+        <div class="col-lg-3">
+            <strong>Contacto</strong>
+            <br><br>
+            <div class="row">
+                <img src="{% static 'img/direc.png' %}" alt="" width="20px" height="20px"
+                    style="margin-right: 10px; margin-left: 15px;">
+                <p>Av. Esq. Blanca 501, Maipú</p>
+            </div>
+            <div class="row">
+                <img src="{% static 'img/fono.png' %}" alt="" width="20px" height="20px"
+                    style="margin-right: 10px; margin-left: 15px;">
+                <p>+569 2387 4337</p>
+            </div>
+            <div class="row">
+                <img src="{% static 'img/mail.png' %}" alt="" width="20px" height="20px"
+                    style="margin-right: 10px; margin-left: 15px;">
+                <p>patitas.huellas@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    </footer>
+</body>
+</html>

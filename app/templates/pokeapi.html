@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    {% load static %} 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="website icon" type="png" href="{% static 'img/logo.png' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>  
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .bod {
+        background: rgb(85, 144, 189);
+        background: linear-gradient(
+            90deg,
+            rgba(85, 144, 189, 1) 0%,
+            rgba(108, 183, 240, 1) 54%,
+            rgba(182, 216, 242, 1) 82%
+        );
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Oswald", sans-serif;
+        }
+        h2 {
+        color: white;
+        }
+        .pokemon-container {
+        column-count: 3;
+        column-gap: 20px;
+        gap: 0px;
+        width: auto;
+        height: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        }
+        .pokemon-block,
+        .pokemon-block-back {
+        border-radius: 10px;
+        padding: 0px;
+        background-color: white;
+        box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+        }
+        .img-container {
+        background-image: url("blob.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        }
+        .pokemon-block p {
+        margin: 10px;
+        }
+        .name {
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 1.2rem;
+        }
+        #spinner {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        }
+        .pagination {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        }
+        .card-container {
+        position: relative;
+        width: 90%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        }
+        .flip-card:hover .card-container {
+        transform: rotateY(180deg);
+        }
+        .pokemon-block,
+        .pokemon-block-back {
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        }
+        .pokemon-block-back {
+        transform: rotateY(180deg);
+        position: absolute;
+        top: 0%;
+        }
+        .stat-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr ;
+        text-align: left;
+        align-items: baseline;
+        }
+        h3{
+        text-align: center;
+        font-style: italic;
+        }
+        input[type=text]:focus {
+        border: 3px solid #555;
+        }
+        .right {
+        position: absolute;
+        right: 0px;
+        width: 300px;
+        
+        padding: 10px;
+        }
+        .reloj{
+        font-family: "Oswald", Arial;
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
+        background:#343a40;
+        color:#71767f ;
+        font-weight: bold;
+        border: 3px solid #cad3dc;
+        border-radius: 2px; 
+        padding:5px;
+        align-items: center;
+        
+        }
+        footer{
+            padding: 15px;
+            color: #c5c5c5;
+            background-color: #212529;
+            height: 180px;
+            margin-top: 10px;
+            column-gap: 12;
+            font-family: "Oswald", sans-serif;
+        }
+        footer div a{
+            color: #c5c5c5;
+        }
+        footer div p{
+            font-size: 12px;
+            color: #888888;
+            padding-top: 0px;
+            line-height: 15px;
+            text-align: center;
+        }
+        
+        @media (max-width:1000px){
+            header label{
+                display: block;
+            }
+            footer{
+            height: 520px;
+            }
+            
+        }  
+        ul{ 
+        font-family:"Chivo Mono",monospace;
+        display: flex;
+        gap: 20px;
+        }
+        ul li{
+        list-style: none;
+        }
+        ul li a{
+        font-size: 23px;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: white;
+        padding: 10px;
+        transition: 0.5s ease;
+        }
+        ul:hover li a:not(:hover){
+        color: white;
+        opacity: 0.3;
+        filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="bod">
+<!--navbar-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'nosotros' %}">
+    <img src="{% static 'img/logo.png' %}" alt="Logo" width="40px" height="40px" class="rounded-pill">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="opciones">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}"><b>Inicio</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'nosotros' %}"><b>Nosotros</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'galeria' %}"><b>Galeria</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'pokedex' %}" target="_blank"><b>Pokedex</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'formulario' %}"><b>form</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'clientes'%}" target="_blank"><b>Clientes</b></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'mascotas'%}" target="_blank"><b>Mascotas</b></a>
+        </li>
+        
+    </ul>
+    <!--reloj-->
+    <div class="container">
+        <ul class="navbar-nav col-lg-12" >
+        <li class="nav-item right">
+            <div class="reloj">
+                <span id="tiempo">00 : 00 : 00</span>
+            </div>
+        <script src="{% static 'js/reloj.js' %}"></script> </li>
+        </ul>
+    </div>
+    </div>
+</div>
+</nav>
+<br><br><br>
+<div class="container-fluid ">
+    <h2 class="title">Pokedex</h2>
+    <div class="pokemon-container  ">
+
+    </div>
+    <div class="container-fluid ">
+      <nav class="pagination  " aria-label="...">
+          <ul class="pagination ">
+            <li class="page-item col-6" id="previous">
+              <a class="page-link" href="#" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item col-6" id="next">
+              <a class="page-link" href="#">Siguiente</a>
+            </li>
+          </ul>
+      </nav>
+    </div>
+    <div id="spinner" class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</div>
+
+
+<!--footer-->
+<footer>
+<div class="row">
+    <div class="col-lg-1" >
+        <a href="{% url 'nosotros' %}">
+        <img src="{% static 'img/logo.png' %}"  width="55px" ><br><br>
+        </a>
+        <div class="row-lg-1">
+        <p>&copy; Copyrigth - 2023</p>
+        <p>Jean Castro & Eloí Espinaza</p>
+        </div>  
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'home' %}" ><strong>INICIO</strong></a>
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'nosotros' %}" ><strong>NOSOTROS</strong></a>
+    </div>
+    <div class="col-lg-1">
+        <a href="{% url 'galeria' %}" ><strong>GALERIA</strong></a>
+    </div>
+    <div class="col-lg-1 ">
+        <a href="{% url 'pokedex' %}" target="_blank"><strong>POKEDEX</strong></a>
+    </div>
+    <div class="col-lg-1 ">
+        <a href="{% url 'formulario' %}" ><strong>FORM</strong></a>
+    </div>
+    
+    <div class="col-lg-4">
+        <strong>Síguenos</strong>
+        <br><br>
+        <div class="row-lg-2">
+            <a href="https://es-la.facebook.com/" target="_blank">
+            <img src="{% static 'img/face.png' %}" alt="" width="30px" height="30px" style=" margin-left: 15px;">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+            <img src="{% static 'img/insta.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+            </a>
+            <a href="https://twitter.com/?lang=es" target="_blank">
+            <img src="{% static 'img/twit.png' %}" alt="" width="30px" height="30px" style=" margin-left: 10px;">
+            </a>
+            <br><br>
+        </div>
+    </div>
+    
+    <div class="col-lg-2">
+        <strong>Contacto</strong>
+        <br><br>
+        <div class="row">
+            <img src="{% static 'img/direc.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>Av. Esq. Blanca 501, Maipú</p>
+        </div>
+        <div class="row">
+            <img src="{% static 'img/fono.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>+569 2387 4337</p>
+        </div>
+        <div class="row">
+            <img src="{% static 'img/mail.png' %}" alt="" width="20px" height="20px"
+                style="margin-right: 10px; margin-left: 15px;">
+            <p>patitas.huellas@gmail.com</p>
+        </div>
+    </div>
+</div>
+</footer>
+</body>
+</html>
